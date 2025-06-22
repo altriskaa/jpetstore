@@ -37,6 +37,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class ItemMapperTest {
 
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  private static final String PRODUCT_ID_FI_SW_01 = "FI-SW-01";
+  private static final String ITEM_ID_EST_1 = "EST-1";
+  private static final String PRICE_16_50 = "16.50";
+  private static final String PRICE_10_00 = "10.00";
+  private static final String PRODUCT_NAME_ANGELFISH = "Angelfish";
+  private static final String PRODUCT_DESCRIPTION_AUS =
+          "<image src=\"../images/fish1.gif\">Salt Water fish from Australia";
+
+
   @Autowired
   private ItemMapper mapper;
 
@@ -46,7 +56,7 @@ class ItemMapperTest {
   @Test
   void getItemListByProduct() {
     // given
-    String productId = "FI-SW-01";
+    String productId = PRODUCT_ID_FI_SW_01;
 
     // when
     List<Item> items = mapper.getItemListByProduct(productId);
@@ -54,9 +64,9 @@ class ItemMapperTest {
     // then
     items.sort(Comparator.comparing(Item::getItemId));
     assertThat(items).hasSize(2);
-    assertThat(items.get(0).getItemId()).isEqualTo("EST-1");
-    assertThat(items.get(0).getListPrice()).isEqualTo(new BigDecimal("16.50"));
-    assertThat(items.get(0).getUnitCost()).isEqualTo(new BigDecimal("10.00"));
+    assertThat(items.get(0).getItemId()).isEqualTo(ITEM_ID_EST_1);
+    assertThat(items.get(0).getListPrice()).isEqualTo(new BigDecimal(PRICE_16_50));
+    assertThat(items.get(0).getUnitCost()).isEqualTo(new BigDecimal(PRICE_10_00));
     assertThat(items.get(0).getSupplierId()).isEqualTo(1);
     assertThat(items.get(0).getStatus()).isEqualTo("P");
     assertThat(items.get(0).getAttribute1()).isEqualTo("Large");
@@ -64,14 +74,14 @@ class ItemMapperTest {
     assertThat(items.get(0).getAttribute3()).isNull();
     assertThat(items.get(0).getAttribute4()).isNull();
     assertThat(items.get(0).getAttribute5()).isNull();
-    assertThat(items.get(0).getProduct().getProductId()).isEqualTo("FI-SW-01");
-    assertThat(items.get(0).getProduct().getName()).isEqualTo("Angelfish");
+    assertThat(items.get(0).getProduct().getProductId()).isEqualTo(PRODUCT_ID_FI_SW_01);
+    assertThat(items.get(0).getProduct().getName()).isEqualTo(PRODUCT_NAME_ANGELFISH);
     assertThat(items.get(0).getProduct().getDescription())
-        .isEqualTo("<image src=\"../images/fish1.gif\">Salt Water fish from Australia");
+        .isEqualTo(PRODUCT_DESCRIPTION_AUS);
     assertThat(items.get(0).getProduct().getCategoryId()).isEqualTo("FISH");
     assertThat(items.get(1).getItemId()).isEqualTo("EST-2");
-    assertThat(items.get(1).getListPrice()).isEqualTo(new BigDecimal("16.50"));
-    assertThat(items.get(1).getUnitCost()).isEqualTo(new BigDecimal("10.00"));
+    assertThat(items.get(1).getListPrice()).isEqualTo(new BigDecimal(PRICE_16_50));
+    assertThat(items.get(1).getUnitCost()).isEqualTo(new BigDecimal(PRICE_10_00));
     assertThat(items.get(1).getSupplierId()).isEqualTo(1);
     assertThat(items.get(1).getStatus()).isEqualTo("P");
     assertThat(items.get(1).getAttribute1()).isEqualTo("Small");
@@ -79,25 +89,25 @@ class ItemMapperTest {
     assertThat(items.get(1).getAttribute3()).isNull();
     assertThat(items.get(1).getAttribute4()).isNull();
     assertThat(items.get(1).getAttribute5()).isNull();
-    assertThat(items.get(1).getProduct().getProductId()).isEqualTo("FI-SW-01");
-    assertThat(items.get(1).getProduct().getName()).isEqualTo("Angelfish");
+    assertThat(items.get(1).getProduct().getProductId()).isEqualTo(PRODUCT_ID_FI_SW_01);
+    assertThat(items.get(1).getProduct().getName()).isEqualTo(PRODUCT_NAME_ANGELFISH);
     assertThat(items.get(1).getProduct().getDescription())
-        .isEqualTo("<image src=\"../images/fish1.gif\">Salt Water fish from Australia");
+        .isEqualTo(PRODUCT_DESCRIPTION_AUS);
     assertThat(items.get(1).getProduct().getCategoryId()).isEqualTo("FISH");
   }
 
   @Test
   void getItem() {
     // given
-    String itemId = "EST-1";
+    String itemId = ITEM_ID_EST_1;
 
     // when
     Item item = mapper.getItem(itemId);
 
     // then
-    assertThat(item.getItemId()).isEqualTo("EST-1");
-    assertThat(item.getListPrice()).isEqualTo(new BigDecimal("16.50"));
-    assertThat(item.getUnitCost()).isEqualTo(new BigDecimal("10.00"));
+    assertThat(item.getItemId()).isEqualTo(ITEM_ID_EST_1);
+    assertThat(item.getListPrice()).isEqualTo(new BigDecimal(PRICE_16_50));
+    assertThat(item.getUnitCost()).isEqualTo(new BigDecimal(PRICE_10_00));
     assertThat(item.getSupplierId()).isEqualTo(1);
     assertThat(item.getStatus()).isEqualTo("P");
     assertThat(item.getAttribute1()).isEqualTo("Large");
@@ -105,17 +115,17 @@ class ItemMapperTest {
     assertThat(item.getAttribute3()).isNull();
     assertThat(item.getAttribute4()).isNull();
     assertThat(item.getAttribute5()).isNull();
-    assertThat(item.getProduct().getProductId()).isEqualTo("FI-SW-01");
-    assertThat(item.getProduct().getName()).isEqualTo("Angelfish");
+    assertThat(item.getProduct().getProductId()).isEqualTo(PRODUCT_ID_FI_SW_01);
+    assertThat(item.getProduct().getName()).isEqualTo(PRODUCT_NAME_ANGELFISH);
     assertThat(item.getProduct().getDescription())
-        .isEqualTo("<image src=\"../images/fish1.gif\">Salt Water fish from Australia");
+        .isEqualTo(PRODUCT_DESCRIPTION_AUS);
     assertThat(item.getProduct().getCategoryId()).isEqualTo("FISH");
   }
 
   @Test
   void getInventoryQuantity() {
     // given
-    String itemId = "EST-1";
+    String itemId = ITEM_ID_EST_1;
 
     // when
     int quantity = mapper.getInventoryQuantity(itemId);
@@ -128,7 +138,7 @@ class ItemMapperTest {
   @Test
   void updateInventoryQuantity() {
     // given
-    String itemId = "EST-1";
+    String itemId = ITEM_ID_EST_1;
     Map<String, Object> params = new HashMap<>();
     params.put("itemId", itemId);
     params.put("increment", 10);

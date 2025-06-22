@@ -37,6 +37,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class OrderMapperTest {
 
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  private static final String TEST_CREDIT_CARD = "1234 5678 9012 3456";
+  private static final String TEST_EXPIRY_DATE = "06/2022";
+  private static final String TEST_COURIER = "Courier";
+  private static final String TEST_TOTAL_PRICE = "2000.05";
+  private static final String TEST_BILL_ADDR1 = "Bill Address1";
+  private static final String TEST_BILL_ADDR2 = "Bill Address2";
+  private static final String TEST_BILL_CITY = "Bill City";
+  private static final String TEST_BILL_STATE = "Bill State";
+  private static final String TEST_BILL_ZIP = "80001";
+  private static final String TEST_BILL_FIRST_NAME = "Bill First Name";
+  private static final String TEST_BILL_LAST_NAME = "Bill Last Name";
+  private static final String TEST_SHIP_ADDR1 = "Ship Address1";
+  private static final String TEST_SHIP_ADDR2 = "Ship Address2";
+  private static final String TEST_SHIP_CITY = "Ship City";
+  private static final String TEST_SHIP_STATE = "Ship State";
+  private static final String TEST_SHIP_ZIP = "70001";
+  private static final String TEST_SHIP_FIRST_NAME = "Ship First Name";
+  private static final String TEST_SHIP_LAST_NAME = "Ship Last Name";
+
+
   @Autowired
   private OrderMapper mapper;
 
@@ -51,27 +72,27 @@ class OrderMapperTest {
     order.setOrderDate(java.sql.Timestamp.valueOf(LocalDateTime.of(2018, 12, 31, 23, 59, 59)));
     order.setUsername("j2ee");
     order.setCardType("Visa");
-    order.setCreditCard("1234 5678 9012 3456");
-    order.setExpiryDate("06/2022");
-    order.setCourier("Courier");
+    order.setCreditCard(TEST_CREDIT_CARD);
+    order.setExpiryDate(TEST_EXPIRY_DATE);
+    order.setCourier(TEST_COURIER);
     order.setLocale("ja");
-    order.setTotalPrice(new BigDecimal("2000.05"));
-    order.setBillAddress1("Bill Address1");
-    order.setBillAddress2("Bill Address2");
-    order.setBillCity("Bill City");
-    order.setBillState("Bill State");
+    order.setTotalPrice(new BigDecimal(TEST_TOTAL_PRICE));
+    order.setBillAddress1(TEST_BILL_ADDR1);
+    order.setBillAddress2(TEST_BILL_ADDR2);
+    order.setBillCity(TEST_BILL_CITY);
+    order.setBillState(TEST_BILL_STATE);
     order.setBillCountry("USA");
-    order.setBillZip("80001");
-    order.setBillToFirstName("Bill First Name");
-    order.setBillToLastName("Bill Last Name");
-    order.setShipAddress1("Ship Address1");
-    order.setShipAddress2("Ship Address2");
-    order.setShipCity("Ship City");
-    order.setShipState("Ship State");
+    order.setBillZip(TEST_BILL_ZIP);
+    order.setBillToFirstName(TEST_BILL_FIRST_NAME);
+    order.setBillToLastName(TEST_BILL_LAST_NAME);
+    order.setShipAddress1(TEST_SHIP_ADDR1);
+    order.setShipAddress2(TEST_SHIP_ADDR2);
+    order.setShipCity(TEST_SHIP_CITY);
+    order.setShipState(TEST_SHIP_STATE);
     order.setShipCountry("JPN");
-    order.setShipZip("70001");
-    order.setShipToFirstName("Ship First Name");
-    order.setShipToLastName("Ship Last Name");
+    order.setShipZip(TEST_SHIP_ZIP);
+    order.setShipToFirstName(TEST_SHIP_FIRST_NAME);
+    order.setShipToLastName(TEST_SHIP_LAST_NAME);
 
     // when
     mapper.insertOrder(order);
@@ -90,7 +111,7 @@ class OrderMapperTest {
         .containsEntry("BILLSTATE", order.getBillState()).containsEntry("BILLZIP", order.getBillZip())
         .containsEntry("BILLCOUNTRY", order.getBillCountry())
         .containsEntry("BILLTOFIRSTNAME", order.getBillToFirstName())
-        .containsEntry("BILLTOLASTNAME", order.getBillToLastName()).containsEntry("COURIER", order.getCourier())
+        .containsEntry("BILLTOLASTNAME", order.getBillToLastName()).containsEntry(TEST_COURIER, order.getCourier())
         .containsEntry("TOTALPRICE", order.getTotalPrice()).containsEntry("CREDITCARD", order.getCreditCard())
         .containsEntry("EXPRDATE", order.getExpiryDate()).containsEntry("CARDTYPE", order.getCardType())
         .containsEntry("LOCALE", order.getLocale());
@@ -126,27 +147,27 @@ class OrderMapperTest {
     newOrder.setStatus("OK");
     newOrder.setUsername("j2ee");
     newOrder.setCardType("Visa");
-    newOrder.setCreditCard("1234 5678 9012 3456");
-    newOrder.setExpiryDate("06/2022");
-    newOrder.setCourier("Courier");
+    newOrder.setCreditCard(TEST_CREDIT_CARD);
+    newOrder.setExpiryDate(TEST_EXPIRY_DATE);
+    newOrder.setCourier(TEST_COURIER);
     newOrder.setLocale("ja");
-    newOrder.setTotalPrice(new BigDecimal("2000.05"));
-    newOrder.setBillAddress1("Bill Address1");
-    newOrder.setBillAddress2("Bill Address2");
-    newOrder.setBillCity("Bill City");
-    newOrder.setBillState("Bill State");
+    newOrder.setTotalPrice(new BigDecimal(TEST_TOTAL_PRICE));
+    newOrder.setBillAddress1(TEST_BILL_ADDR1);
+    newOrder.setBillAddress2(TEST_BILL_ADDR2);
+    newOrder.setBillCity(TEST_BILL_CITY);
+    newOrder.setBillState(TEST_BILL_STATE);
     newOrder.setBillCountry("USA");
-    newOrder.setBillZip("80001");
-    newOrder.setBillToFirstName("Bill First Name");
-    newOrder.setBillToLastName("Bill Last Name");
-    newOrder.setShipAddress1("Ship Address1");
-    newOrder.setShipAddress2("Ship Address2");
-    newOrder.setShipCity("Ship City");
-    newOrder.setShipState("Ship State");
+    newOrder.setBillZip(TEST_BILL_ZIP);
+    newOrder.setBillToFirstName(TEST_BILL_FIRST_NAME);
+    newOrder.setBillToLastName(TEST_BILL_LAST_NAME);
+    newOrder.setShipAddress1(TEST_SHIP_ADDR1);
+    newOrder.setShipAddress2(TEST_SHIP_ADDR2);
+    newOrder.setShipCity(TEST_SHIP_CITY);
+    newOrder.setShipState(TEST_SHIP_STATE);
     newOrder.setShipCountry("JPN");
-    newOrder.setShipZip("70001");
-    newOrder.setShipToFirstName("Ship First Name");
-    newOrder.setShipToLastName("Ship Last Name");
+    newOrder.setShipZip(TEST_SHIP_ZIP);
+    newOrder.setShipToFirstName(TEST_SHIP_FIRST_NAME);
+    newOrder.setShipToLastName(TEST_SHIP_LAST_NAME);
     mapper.insertOrder(newOrder);
     mapper.insertOrderStatus(newOrder);
 
@@ -190,27 +211,27 @@ class OrderMapperTest {
     newOrder.setStatus("OK");
     newOrder.setUsername("j2ee");
     newOrder.setCardType("Visa");
-    newOrder.setCreditCard("1234 5678 9012 3456");
-    newOrder.setExpiryDate("06/2022");
-    newOrder.setCourier("Courier");
+    newOrder.setCreditCard(TEST_CREDIT_CARD);
+    newOrder.setExpiryDate(TEST_EXPIRY_DATE);
+    newOrder.setCourier(TEST_COURIER);
     newOrder.setLocale("ja");
-    newOrder.setTotalPrice(new BigDecimal("2000.05"));
-    newOrder.setBillAddress1("Bill Address1");
-    newOrder.setBillAddress2("Bill Address2");
-    newOrder.setBillCity("Bill City");
-    newOrder.setBillState("Bill State");
+    newOrder.setTotalPrice(new BigDecimal(TEST_TOTAL_PRICE));
+    newOrder.setBillAddress1(TEST_BILL_ADDR1);
+    newOrder.setBillAddress2(TEST_BILL_ADDR2);
+    newOrder.setBillCity(TEST_BILL_CITY);
+    newOrder.setBillState(TEST_BILL_STATE);
     newOrder.setBillCountry("USA");
-    newOrder.setBillZip("80001");
-    newOrder.setBillToFirstName("Bill First Name");
-    newOrder.setBillToLastName("Bill Last Name");
-    newOrder.setShipAddress1("Ship Address1");
-    newOrder.setShipAddress2("Ship Address2");
-    newOrder.setShipCity("Ship City");
-    newOrder.setShipState("Ship State");
+    newOrder.setBillZip(TEST_BILL_ZIP);
+    newOrder.setBillToFirstName(TEST_BILL_FIRST_NAME);
+    newOrder.setBillToLastName(TEST_BILL_LAST_NAME);
+    newOrder.setShipAddress1(TEST_SHIP_ADDR1);
+    newOrder.setShipAddress2(TEST_SHIP_ADDR2);
+    newOrder.setShipCity(TEST_SHIP_CITY);
+    newOrder.setShipState(TEST_SHIP_STATE);
     newOrder.setShipCountry("JPN");
-    newOrder.setShipZip("70001");
-    newOrder.setShipToFirstName("Ship First Name");
-    newOrder.setShipToLastName("Ship Last Name");
+    newOrder.setShipZip(TEST_SHIP_ZIP);
+    newOrder.setShipToFirstName(TEST_SHIP_FIRST_NAME);
+    newOrder.setShipToLastName(TEST_SHIP_LAST_NAME);
     mapper.insertOrder(newOrder);
     mapper.insertOrderStatus(newOrder);
 

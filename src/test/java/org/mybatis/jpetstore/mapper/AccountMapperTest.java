@@ -33,6 +33,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class AccountMapperTest {
 
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  private static final String USER_MYBATIS = "mybatis";
+  private static final String DB_COLUMN_USERID = "USERID";
+
+
   @Autowired
   private AccountMapper mapper;
 
@@ -103,7 +108,7 @@ class AccountMapperTest {
 
     // given
     Account account = new Account();
-    account.setUsername("mybatis");
+    account.setUsername(USER_MYBATIS);
     account.setEmail("mybatis@example.com");
     account.setFirstName("My");
     account.setLastName("Batis");
@@ -120,8 +125,8 @@ class AccountMapperTest {
     mapper.insertAccount(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", "mybatis");
-    assertThat(record).hasSize(12).containsEntry("USERID", account.getUsername())
+    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", USER_MYBATIS);
+    assertThat(record).hasSize(12).containsEntry(DB_COLUMN_USERID, account.getUsername())
         .containsEntry("EMAIL", account.getEmail()).containsEntry("FIRSTNAME", account.getFirstName())
         .containsEntry("LASTNAME", account.getLastName()).containsEntry("STATUS", account.getStatus())
         .containsEntry("ADDR1", account.getAddress1()).containsEntry("ADDR2", account.getAddress2())
@@ -135,7 +140,7 @@ class AccountMapperTest {
 
     // given
     Account account = new Account();
-    account.setUsername("mybatis");
+    account.setUsername(USER_MYBATIS);
     account.setLanguagePreference("japanese");
     account.setFavouriteCategoryId("C01");
     account.setListOption(true);
@@ -145,9 +150,9 @@ class AccountMapperTest {
     mapper.insertProfile(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", "mybatis");
+    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", USER_MYBATIS);
 
-    assertThat(record).hasSize(5).containsEntry("USERID", account.getUsername())
+    assertThat(record).hasSize(5).containsEntry(DB_COLUMN_USERID, account.getUsername())
         .containsEntry("LANGPREF", account.getLanguagePreference())
         .containsEntry("FAVCATEGORY", account.getFavouriteCategoryId()).containsEntry("MYLISTOPT", 1)
         .containsEntry("BANNEROPT", 0);
@@ -158,14 +163,14 @@ class AccountMapperTest {
 
     // given
     Account account = new Account();
-    account.setUsername("mybatis");
+    account.setUsername(USER_MYBATIS);
     account.setPassword("password");
 
     // when
     mapper.insertSignon(account);
 
     // then
-    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM signon WHERE username = ?", "mybatis");
+    Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM signon WHERE username = ?", USER_MYBATIS);
 
     assertThat(record).hasSize(2).containsEntry("USERNAME", account.getUsername()).containsEntry("PASSWORD",
         account.getPassword());
@@ -195,7 +200,7 @@ class AccountMapperTest {
     // then
     Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM account WHERE userid = ?", "j2ee");
 
-    assertThat(record).hasSize(12).containsEntry("USERID", account.getUsername())
+    assertThat(record).hasSize(12).containsEntry(DB_COLUMN_USERID, account.getUsername())
         .containsEntry("EMAIL", account.getEmail()).containsEntry("FIRSTNAME", account.getFirstName())
         .containsEntry("LASTNAME", account.getLastName()).containsEntry("STATUS", account.getStatus())
         .containsEntry("ADDR1", account.getAddress1()).containsEntry("ADDR2", account.getAddress2())
@@ -221,7 +226,7 @@ class AccountMapperTest {
     // then
     Map<String, Object> record = jdbcTemplate.queryForMap("SELECT * FROM profile WHERE userid = ?", "j2ee");
 
-    assertThat(record).hasSize(5).containsEntry("USERID", account.getUsername())
+    assertThat(record).hasSize(5).containsEntry(DB_COLUMN_USERID, account.getUsername())
         .containsEntry("LANGPREF", account.getLanguagePreference())
         .containsEntry("FAVCATEGORY", account.getFavouriteCategoryId()).containsEntry("MYLISTOPT", 0)
         .containsEntry("BANNEROPT", 0);
