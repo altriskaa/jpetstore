@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2023 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,6 +36,7 @@ import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.LineItem;
 import org.mybatis.jpetstore.domain.Order;
 import org.mybatis.jpetstore.domain.Sequence;
+import org.mybatis.jpetstore.exception.SequenceNotFoundException;
 import org.mybatis.jpetstore.mapper.ItemMapper;
 import org.mybatis.jpetstore.mapper.LineItemMapper;
 import org.mybatis.jpetstore.mapper.OrderMapper;
@@ -176,6 +178,25 @@ class OrderServiceTest {
     verify(orderMapper).insertOrderStatus(eq(order));
     verify(lineItemMapper).insertLineItem(argThat(v -> v == item && v.getOrderId() == 100));
     verify(itemMapper).updateInventoryQuantity(eq(expectedItemParam));
+  }
+
+  // [REFACTOR (java:S112)] 22/06/25 - "Define and throw a dedicated exception instead of using a generic one." [M]
+  @Test
+  void shouldThrowSequenceNotFoundExceptionWhenSequenceIsNull() {
+    // given
+    String name = "order";
+
+    // when
+    when(sequenceMapper.getSequence(any())).thenReturn(null);
+
+    // then
+    SequenceNotFoundException exception = Assertions.assertThrows(SequenceNotFoundException.class,
+        () -> orderService.getNextId(name));
+
+    assertThat(exception.getMessage())
+        .isEqualTo("Error: A null sequence was returned from the database (could not get next order sequence).");
+
+    verify(sequenceMapper).getSequence(argThat(v -> v.getName().equals(name) && v.getNextId() == -1));
   }
 
 }

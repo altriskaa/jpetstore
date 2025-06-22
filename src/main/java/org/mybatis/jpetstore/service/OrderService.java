@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import java.util.Map;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Order;
 import org.mybatis.jpetstore.domain.Sequence;
+import org.mybatis.jpetstore.exception.SequenceNotFoundException;
 import org.mybatis.jpetstore.mapper.ItemMapper;
 import org.mybatis.jpetstore.mapper.LineItemMapper;
 import org.mybatis.jpetstore.mapper.OrderMapper;
@@ -118,11 +119,11 @@ public class OrderService {
    *
    * @return the next id
    */
+  // [REFACTOR (java:S112)] 22/06/25 - "Define and throw a dedicated exception instead of using a generic one." [M]
   public int getNextId(String name) {
     Sequence sequence = sequenceMapper.getSequence(new Sequence(name, -1));
     if (sequence == null) {
-      throw new RuntimeException(
-          "Error: A null sequence was returned from the database (could not get next " + name + " sequence).");
+      throw new SequenceNotFoundException(name);
     }
     Sequence parameterObject = new Sequence(name, sequence.getNextId() + 1);
     sequenceMapper.updateSequence(parameterObject);
