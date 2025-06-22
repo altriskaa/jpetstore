@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -187,8 +187,11 @@ public class CatalogActionBean extends AbstractActionBean {
    *
    * @return the forward resolution
    */
+
+  // [REFACTOR (java:S7158)] 22/06/25 - "Use isEmpty() to check whether a string is empty or not.".
+  // "String.isEmpty()" should be used to test for emptiness" [M]
   public ForwardResolution searchProducts() {
-    if (keyword == null || keyword.length() < 1) {
+    if (keyword == null || keyword.isEmpty()) {
       setMessage("Please enter a keyword to search for, then press the search button.");
       return new ForwardResolution(ERROR);
     } else {

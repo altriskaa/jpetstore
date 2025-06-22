@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -51,7 +51,8 @@ import org.openqa.selenium.By;
 @ExtendWith(ScreenShooterExtension.class)
 class ScreenTransitionIT {
 
-  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String
+  // literals should not be duplicated" [M]
   private static final String TITLE_JPETSTORE_DEMO = "JPetStore Demo";
   private static final String TEXT_ENTER_STORE = "Enter the Store";
   private static final String ID_WELCOME_CONTENT = "WelcomeContent";
@@ -63,7 +64,7 @@ class ScreenTransitionIT {
   private static final String CSS_CATALOG_H2 = "#Catalog h2";
   private static final String CSS_CATALOG_H3 = "#Catalog h3";
   private static final String TEXT_USER_INFO = "User Information";
-  
+
   @BeforeAll
   static void setupSelenide() {
     browser = CHROME;

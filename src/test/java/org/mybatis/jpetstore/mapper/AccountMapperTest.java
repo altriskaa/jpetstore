@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -33,10 +33,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class AccountMapperTest {
 
-  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String
+  // literals should not be duplicated" [M]
   private static final String USER_MYBATIS = "mybatis";
   private static final String DB_COLUMN_USERID = "USERID";
-
 
   @Autowired
   private AccountMapper mapper;

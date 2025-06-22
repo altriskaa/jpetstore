@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -37,15 +37,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class ItemMapperTest {
 
-  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String
+  // literals should not be duplicated" [M]
   private static final String PRODUCT_ID_FI_SW_01 = "FI-SW-01";
   private static final String ITEM_ID_EST_1 = "EST-1";
   private static final String PRICE_16_50 = "16.50";
   private static final String PRICE_10_00 = "10.00";
   private static final String PRODUCT_NAME_ANGELFISH = "Angelfish";
-  private static final String PRODUCT_DESCRIPTION_AUS =
-          "<image src=\"../images/fish1.gif\">Salt Water fish from Australia";
-
+  private static final String PRODUCT_DESCRIPTION_AUS = "<image src=\"../images/fish1.gif\">Salt Water fish from Australia";
 
   @Autowired
   private ItemMapper mapper;
@@ -76,8 +75,7 @@ class ItemMapperTest {
     assertThat(items.get(0).getAttribute5()).isNull();
     assertThat(items.get(0).getProduct().getProductId()).isEqualTo(PRODUCT_ID_FI_SW_01);
     assertThat(items.get(0).getProduct().getName()).isEqualTo(PRODUCT_NAME_ANGELFISH);
-    assertThat(items.get(0).getProduct().getDescription())
-        .isEqualTo(PRODUCT_DESCRIPTION_AUS);
+    assertThat(items.get(0).getProduct().getDescription()).isEqualTo(PRODUCT_DESCRIPTION_AUS);
     assertThat(items.get(0).getProduct().getCategoryId()).isEqualTo("FISH");
     assertThat(items.get(1).getItemId()).isEqualTo("EST-2");
     assertThat(items.get(1).getListPrice()).isEqualTo(new BigDecimal(PRICE_16_50));
@@ -91,8 +89,7 @@ class ItemMapperTest {
     assertThat(items.get(1).getAttribute5()).isNull();
     assertThat(items.get(1).getProduct().getProductId()).isEqualTo(PRODUCT_ID_FI_SW_01);
     assertThat(items.get(1).getProduct().getName()).isEqualTo(PRODUCT_NAME_ANGELFISH);
-    assertThat(items.get(1).getProduct().getDescription())
-        .isEqualTo(PRODUCT_DESCRIPTION_AUS);
+    assertThat(items.get(1).getProduct().getDescription()).isEqualTo(PRODUCT_DESCRIPTION_AUS);
     assertThat(items.get(1).getProduct().getCategoryId()).isEqualTo("FISH");
   }
 
@@ -117,8 +114,7 @@ class ItemMapperTest {
     assertThat(item.getAttribute5()).isNull();
     assertThat(item.getProduct().getProductId()).isEqualTo(PRODUCT_ID_FI_SW_01);
     assertThat(item.getProduct().getName()).isEqualTo(PRODUCT_NAME_ANGELFISH);
-    assertThat(item.getProduct().getDescription())
-        .isEqualTo(PRODUCT_DESCRIPTION_AUS);
+    assertThat(item.getProduct().getDescription()).isEqualTo(PRODUCT_DESCRIPTION_AUS);
     assertThat(item.getProduct().getCategoryId()).isEqualTo("FISH");
   }
 

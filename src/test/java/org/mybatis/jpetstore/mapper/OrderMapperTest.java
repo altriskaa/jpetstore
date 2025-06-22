@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2022 the original author or authors.
+ *    Copyright 2010-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -37,7 +37,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class OrderMapperTest {
 
-  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String literals should not be duplicated" [M]
+  // [REFACTOR (java:S1192)] 22/06/25 - "Define a constant instead of duplicating this literal multiple times. String
+  // literals should not be duplicated" [M]
   private static final String TEST_CREDIT_CARD = "1234 5678 9012 3456";
   private static final String TEST_EXPIRY_DATE = "06/2022";
   private static final String TEST_COURIER = "Courier";
@@ -56,7 +57,6 @@ class OrderMapperTest {
   private static final String TEST_SHIP_ZIP = "70001";
   private static final String TEST_SHIP_FIRST_NAME = "Ship First Name";
   private static final String TEST_SHIP_LAST_NAME = "Ship Last Name";
-
 
   @Autowired
   private OrderMapper mapper;
